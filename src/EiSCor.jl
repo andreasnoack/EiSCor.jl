@@ -24,7 +24,7 @@ module EiSCor
         info = Array(Int32, 1)
 
         ccall((:dohfqr_, libeiscor), Void,
-            (Ptr{UInt8}, Ptr{Int32}, Ptr{Float64}, Ptr{Float64},
+            (Ptr{Uint8}, Ptr{Int32}, Ptr{Float64}, Ptr{Float64},
              Ptr{Int32}, Ptr{Float64}, Ptr{Int32}),
              &compz, &n, H, Z,
              its, work, info)
@@ -49,7 +49,7 @@ module EiSCor
         info = Array(Int32, 1)
 
         ccall((:zuhfqr_, libeiscor), Void,
-            (Ptr{UInt8}, Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Complex{Float64}},
+            (Ptr{Uint8}, Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Complex{Float64}},
              Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Int32}),
              &compz, &n, H, Z,
              its, work, info)

@@ -1,7 +1,14 @@
 # EiSCor
 A Julia wrapper of the Fortran library [eiscor](https://github.com/jaurentz/eiscor)
 
-Example:
+## Installation:
+
+```julia
+julia> Pkg.clone("https://github.com/andreasnoack/EiSCor.jl")
+julia> Pkg.build("EiSCor")
+```
+
+## Example:
 
 ```julia
 julia> using EiSCor
