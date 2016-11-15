@@ -1,6 +1,7 @@
 module EiSCor
 
-    using Base.LinAlg: Eigen, chksquare, chkstride1
+    using Base.LinAlg: Eigen, chkstride1
+    using Compat.LinAlg: checksquare
     import Base: copy
     import Base.LinAlg: eig, eigfact!, eigvals
 
@@ -14,7 +15,7 @@ module EiSCor
     function ohfqr!(compz::Char, H::Matrix{Float64})
         # Check
         chkstride1(H)
-        n = chksquare(H)
+        n = checksquare(H)
         compz in ('N', 'I', 'V') || throw(ArgumentError("argument compz must be either be either 'N', 'I', or 'V'"))
 
         # Allocate
@@ -24,7 +25,7 @@ module EiSCor
         info = Array(Int32, 1)
 
         ccall((:dohfqr_, libeiscor), Void,
-            (Ptr{Uint8}, Ptr{Int32}, Ptr{Float64}, Ptr{Float64},
+            (Ptr{UInt8}, Ptr{Int32}, Ptr{Float64}, Ptr{Float64},
              Ptr{Int32}, Ptr{Float64}, Ptr{Int32}),
              &compz, &n, H, Z,
              its, work, info)
@@ -39,7 +40,7 @@ module EiSCor
     function uhfqr!(compz::Char, H::Matrix{Complex{Float64}})
         # Check
         chkstride1(H)
-        n = chksquare(H)
+        n = checksquare(H)
         compz in ('N', 'I', 'V') || throw(ArgumentError("argument compz must be either be either 'N', 'I', or 'V'"))
 
         # Allocate
@@ -49,7 +50,7 @@ module EiSCor
         info = Array(Int32, 1)
 
         ccall((:zuhfqr_, libeiscor), Void,
-            (Ptr{Uint8}, Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Complex{Float64}},
+            (Ptr{UInt8}, Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Complex{Float64}},
              Ptr{Int32}, Ptr{Complex{Float64}}, Ptr{Int32}),
              &compz, &n, H, Z,
              its, work, info)
